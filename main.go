@@ -4,21 +4,24 @@ import (
 	"fmt"
 	"os"
 
+	"training.go/hangman/dictionnary"
 	"training.go/hangman/hangman"
-	"training.go/hangman/hangman/dictionnary"
 )
 
 func main() {
 	err := dictionnary.Load("words.txt")
 	if err != nil {
-		fmt.Printf("Could not load dictionnary: %v \n", err)
+		fmt.Printf("Could not load dictionary: %v\n", err)
 		os.Exit(1)
 	}
 
-	g := hangman.New(8, dictionnary.PickWord())
+	g, err := hangman.New(8, dictionnary.PickWord())
+	if err != nil {
+		fmt.Printf("Could not create game: %v\n", err)
+		os.Exit(1)
+	}
 
 	hangman.DrawWelcome()
-
 	guess := ""
 	for {
 		hangman.Draw(g, guess)
@@ -34,7 +37,7 @@ func main() {
 			os.Exit(1)
 		}
 		guess = l
+
 		g.MakeAGuess(guess)
 	}
-
 }

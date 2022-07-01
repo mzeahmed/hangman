@@ -147,7 +147,7 @@ func drawTurns(l int) {
 // Dessine l'etat du jeu
 func drawState(g *Game, guess string) {
 	fmt.Print("Guessed: ")
-	drawLetters(g.Foundletters)
+	drawLetters(g.FoundLetters)
 
 	fmt.Print("Used: ")
 	drawLetters(g.UsedLetters)
